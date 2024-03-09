@@ -1,92 +1,63 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema(
+  {
     fullName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    phoneNumber: {
-        type: Number,
-    },
+    phoneNumber: String,
     address: {
-        street: String,
-        city: String,
-        state: String,
-        zipCode: Number,
-        country: String,
+      street: String,
+      city: String,
+      state: String,
+      zipCode: String,
+      country: String,
     },
-    profilePicture: {
-        type: String,
-    },
-    dateOfBirth: {
-        type: Date,
-    },
+    profilePicture: String,
+    dateOfBirth: Date,
     gender: {
-        type: String,
-        enum: ["male", "female", "other"],
+      type: String,
+      enum: ['male', 'female', 'other'],
     },
     orderHistory: [{
-        orderId: {
-            type: String,
-            unique: true,
-        },
-        items: [{
-            itemId: String,
-            name: String,
-            quantity: Number,
-            price: Number,
-        }],
-        totalCost: Number,
-        date: {
-            type: Date,
-            default: Date.now,
-        },
+      type: Schema.Types.ObjectId,
+      ref: 'Order',
     }],
     paymentMethods: [{
-        type: String,
-        enum: ["upi", "debit", "credit", "net"],
+      type: String,
+      details: {
+        lastFourDigits: String,
+        expirationDate: String,
+      },
     }],
-    dietaryPreferences: {
-        type: String,
-        enum: ["veg", "non-veg"],
-        default: "veg",
-    },
+    dietaryPreferences: [String],
     favoriteCuisines: [String],
     notificationPreferences: {
-        email: {
-            type: Boolean,
-            default: true,
-        },
-        sms: {
-            type: Boolean,
-            default: false,
-        },
-        push: {
-            type: Boolean,
-            default: true,
-        },
+      email: Boolean,
+      sms: Boolean,
+      push: Boolean,
     },
     role: {
-        type: String,
-        enum: ["customer", "admin", "delivery"],
-        default: "customer",
+      type: String,
+      enum: ['customer', 'admin', 'deliveryPerson'],
+      default: 'customer',
     },
     authToken: String,
-}, { 
-    timestamps: true,
-    versionKey: false,
-});
+  },
+  schemaOptions
+);
 
-const User = mongoose.model("User", userSchema);
-
+const User = mongoose.model('User', userSchema);
 module.exports = User;
