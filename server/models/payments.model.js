@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const schemaOptions = require('../utils/schemaOptions');
 const Schema = mongoose.Schema;
 
 const paymentSchema = new Schema(
