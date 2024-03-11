@@ -52,7 +52,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['customer', 'admin', 'deliveryPerson'],
+      enum: ['customer', 'admin', 'deliveryPerson', 'restaurant'],
       default: 'customer',
     },
     authToken: String,

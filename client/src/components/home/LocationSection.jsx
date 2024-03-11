@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function LocationSection() {
   const locations = [
@@ -20,23 +20,40 @@ function LocationSection() {
     'Thrissur Restaurants', 'Tirupati Restaurants', 'Trichy Restaurants', 'Trivandrum Restaurants', 'Udaipur Restaurants',
     'Vadodara Restaurants', 'Varanasi Restaurants', 'Vellore Restaurants', 'Vijayawada Restaurants',
   ];
+  const [displayedLocations, setDisplayedLocations] = useState(locations.slice(0, 9));
+  const [showAllLocations, setShowAllLocations] = useState(false);
+
+  const handleViewMoreClick = () => {
+    setDisplayedLocations(locations);
+    setShowAllLocations(true);
+  };
 
   return (
-    <div className="p-8">
+    <div className="p-8 font-poppins">
       <div className="mb-8 px-52 text-center">
         <h1 className="text-4xl mb-8 font-poppins font-medium">Popular locations in India</h1>
         <p className="text-gray-500 mb-10 text-xl font-normal">
           From swanky upscale restaurants to the coziest hidden gems serving the most incredible food, ZoomOrder covers it all. Explore menus and millions of restaurant photos and reviews from users just like you to find your next great meal.
         </p>
       </div>
-      <div className='flex justify-around items-center px-10 flex-wrap'>
-        {locations.map((location, index) => (
-          <div key={index} className="group w-72 px-4 py-4 border-0 rounded-lg shadow shadow-gray-300/60 hover:shadow-gray-400/70 mb-10 flex items-center">
+      <div className='flex justify-around items-center flex-wrap'>
+        {displayedLocations.map((location, index) => (
+          <div key={index} className="group w-80 px-4 py-4 border-0 rounded-lg shadow shadow-gray-300/60 hover:shadow-gray-400/70 mb-10 flex items-center">
             <p className='text-xl font-normal text-gray-600 inline'>{location}</p>
             <p className='text-xl font-normal text-gray-600 ml-auto'>&gt;</p>
           </div>
         ))}
       </div>
+      {!showAllLocations && (
+        <div className="text-center mt-8">
+          <button
+            className="text-red-400 text-lg font-semibold hover:underline"
+            onClick={handleViewMoreClick}
+          >
+            View More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaHeart } from 'react-icons/fa';
 
 function Footer() {
   return (
@@ -43,8 +43,10 @@ function Footer() {
         </div>
       </div>
       <hr/>
-      <div className='pt-6 text-lg'>
-        &copy; 2024 ZoomOrder
+      <div className='flex justify-around items-center pt-6 text-lg'>
+        <span>&copy; 2024 ZoomOrder</span>
+        <FaHeart className='text-red-500 hover:text-red-600 text-4xl'/>
+        <span>Shivam Maurya</span>
       </div>
     </div>
   );
