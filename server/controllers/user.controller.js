@@ -34,28 +34,30 @@ const userController = {
     try {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
-
+  
       if (!user) {
-        return res.status(401).json({ message: 'Invalid credentials.' });
+        return res.status(401).json({ error: 'Invalid credentials.' });
       }
-
+  
       const passwordMatch = await bcrypt.compare(password, user.password);
-
+  
       if (!passwordMatch) {
-        return res.status(401).json({ message: 'Invalid credentials.' });
+        return res.status(401).json({ error: 'Invalid credentials.' });
       }
-
+  
       const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1d' });
       res.cookie('token', token, {
         httpOnly: true,
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        secure: process.env.NODE_ENV === 'production', 
       });
-      res.status(200).json({ token });
+      res.status(200).json({ success: true, token, user});
     } catch (error) {
-      console.error('Error in login controller:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      console.error('Error in login controller:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
     }
   },
+  
 
   getAllUsers: async (req, res) => {
     try {

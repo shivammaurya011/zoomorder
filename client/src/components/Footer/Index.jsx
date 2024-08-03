@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaHeart } from 'react-icons/fa';
 
-function Footer() {
+function Index() {
   return (
     <div className='bg-gray-100 font-poppins py-4 px-10'>
       <div className='font-extrabold text-4xl font-serif'>
@@ -52,4 +52,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default Index;

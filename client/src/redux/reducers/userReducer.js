@@ -9,6 +9,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
+  //console.log(action)
   switch (action.type) {
     case actionTypes.REGISTER_REQUEST:
     case actionTypes.LOGIN_REQUEST:
@@ -18,9 +19,32 @@ const userReducer = (state = initialState, action) => {
 
     case actionTypes.REGISTER_SUCCESS:
     case actionTypes.LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: null,
+        userProfile: action.payload.user,
+      };
+
     case actionTypes.UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: null,
+        userProfile: action.payload,
+      };
+
     case actionTypes.DELETE_PROFILE_SUCCESS:
-      return { ...state, loading: false, success: true, error: null };
+      const updatedUsers = state.users.filter(user => user.id !== action.payload);
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        error: null,
+        users: updatedUsers,
+      };
 
     case actionTypes.REGISTER_FAIL:
     case actionTypes.LOGIN_FAIL:

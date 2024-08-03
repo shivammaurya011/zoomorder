@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 import * as actionTypes from '../actionType/userActionType';
 // import dotenv from 'dotenv'
 // dotenv.config()
@@ -9,22 +11,22 @@ const apiUrl = "http://localhost:3030/api";
 
 // Register Actions
 const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
-const registerSuccess = () => ({ type: actionTypes.REGISTER_SUCCESS });
+const registerSuccess = (data) => ({ type: actionTypes.REGISTER_SUCCESS, payload:data });
 const registerFail = (error) => ({ type: actionTypes.REGISTER_FAIL, payload: error });
 
 // Login Actions
 const loginRequest = () => ({ type: actionTypes.LOGIN_REQUEST });
-const loginSuccess = () => ({ type: actionTypes.LOGIN_SUCCESS });
+const loginSuccess = (data) => ({ type: actionTypes.LOGIN_SUCCESS, payload: data });
 const loginFail = (error) => ({ type: actionTypes.LOGIN_FAIL, payload: error });
 
 // Update Profile Actions
 const updateProfileRequest = () => ({ type: actionTypes.UPDATE_PROFILE_REQUEST });
-const updateProfileSuccess = () => ({ type: actionTypes.UPDATE_PROFILE_SUCCESS });
+const updateProfileSuccess = (data) => ({ type: actionTypes.UPDATE_PROFILE_SUCCESS, payload: data });
 const updateProfileFail = (error) => ({ type: actionTypes.UPDATE_PROFILE_FAIL, payload: error });
 
 // Delete Profile Actions
 const deleteProfileRequest = () => ({ type: actionTypes.DELETE_PROFILE_REQUEST });
-const deleteProfileSuccess = () => ({ type: actionTypes.DELETE_PROFILE_SUCCESS });
+const deleteProfileSuccess = (data) => ({ type: actionTypes.DELETE_PROFILE_SUCCESS, payload: data });
 const deleteProfileFail = (error) => ({ type: actionTypes.DELETE_PROFILE_FAIL, payload: error });
 
 // Thunk Actions
@@ -59,11 +61,25 @@ export const loginUser = (userData) => async (dispatch) => {
   try {
     dispatch(loginRequest());
     const response = await axios.post(`${apiUrl}/users/login`, userData);
+    const token = response.data.token
+    Cookies.set("Token", token)
     dispatch(loginSuccess(response.data));
   } catch (error) {
-    dispatch(loginFail(error.response.data.errors[0].message));
+    let errorMessage = 'An error occurred while processing your request.';
+    console.log(error.response.data.message);
+    if (error.response.data.errors) {
+      errorMessage = error.response.data.errors[0].message || errorMessage;
+    } else if (error.response.data.message) {
+      errorMessage = error.response.data.message || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No response received from the server. Please try again later.';
+    } else {
+      errorMessage = error.message || errorMessage;
+    }
+    dispatch(loginFail(errorMessage)); 
   }
 };
+
 
 // Update Profile Thunk
 export const updateProfile = (userId, updatedProfileData) => async (dispatch) => {

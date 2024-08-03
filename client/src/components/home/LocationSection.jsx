@@ -29,14 +29,12 @@ function LocationSection() {
   };
 
   return (
-    <div className="p-8 font-poppins">
-      <div className="mb-8 px-52 text-center">
-        <h1 className="text-4xl mb-8 font-poppins font-medium">Popular locations in India</h1>
-        <p className="text-gray-500 mb-10 text-xl font-normal">
-          From swanky upscale restaurants to the coziest hidden gems serving the most incredible food, ZoomOrder covers it all. Explore menus and millions of restaurant photos and reviews from users just like you to find your next great meal.
-        </p>
+    <div className="mb-6 px-24 font-poppins">
+      <div className="mb-6">
+        <h1 className="text-4xl font-poppins text-blue-900 font-semibold">Popular locations</h1>
+        <p className='text-lg font-poppins text-gray-600'>Discover restaurants by popular locations</p>
       </div>
-      <div className='flex justify-around items-center flex-wrap'>
+      <div className='flex gap-6 items-center justify-center flex-wrap'>
         {displayedLocations.map((location, index) => (
           <div key={index} className="group w-80 px-4 py-4 border-0 rounded-lg shadow shadow-gray-300/60 hover:shadow-gray-400/70 mb-10 flex items-center">
             <p className='text-xl font-normal text-gray-600 inline'>{location}</p>

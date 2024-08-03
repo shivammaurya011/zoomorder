@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff } from 'react-feather';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../components/auth/Modal';
-import { loginUser, registerUser } from '../redux/actions/userAction';
+import Modal from '../modal/Modal';
+import { loginUser, registerUser } from '../../redux/actions/userAction';
+import Cookies from 'js-cookie';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function Header() {
+function Auth() {
+  const location = useLocation()
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const { loading, success, error } = userState;
@@ -18,17 +21,16 @@ function Header() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [token, setToken] = useState(Cookies.get("Token"));
 
   useEffect(() => {
     if (success && modalType === 'signup') {
-      // Open the 'signin' modal after a successful signup
       setModalType('signin');
       setModalOpen(true);
       resetUser();
-      // Reset the success state to prevent the modal from opening on subsequent clicks
       dispatch({ type: 'RESET_SUCCESS' });
     }
-  }, [success, modalType, dispatch]);
+  }, [success, modalType, dispatch, token]);
 
   const resetUser = () => {
     setUser({
@@ -68,34 +70,22 @@ function Header() {
     e.preventDefault();
     if (user.TandC) {
       await dispatch(registerUser({ fullName: user.fullName, email: user.email, password: user.password }));
-      // 'signup' modal opening logic will be handled by useEffect
     }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  return (
-    <div className='absolute top-6 right-6 flex gap-6'>
-      <button
-        onClick={() => openModal('signin')}
-        className='px-4 py-2 font-medium text-lg text-white'
-      >
-        Sign In
-      </button>
-      <button
-        onClick={() => openModal('signup')}
-        className='px-4 py-2 font-medium text-lg text-white'
-      >
-        Sign Up
-      </button>
 
+  return (
+    <div className='flex gap-4 justify-end items-center'>
+        <button onClick={() => openModal('signin')} className='px-4 py-2 font-medium text-lg text-white hover:border-2 border-white rounded-md'>Sign In</button>
+        <button onClick={() => openModal('signup')} className='px-4 py-2 font-medium text-lg text-white border-2 border-white hover:bg-white hover:text-black rounded-md'>Create an account</button>
       {isModalOpen && (
         <Modal title={modalType === 'signin' ? 'Sign In' : 'Sign Up'} onClose={closeModal}>
           {modalType === 'signin' ? (
             <form className="space-y-4" onSubmit={handleSignin} noValidate>
               <input type='email' placeholder='Email' name='email' onChange={handleUser} value={user.email} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
-              <br />
               <div className='relative'>
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -116,15 +106,13 @@ function Header() {
                 Login to your account
               </button>
               <div className="text-sm font-medium text-gray-500">
-              New to ZoomOrder? <button onClick={(e)=>{setModalType("signup"); resetUser()}} className="text-red-400 hover:underline">Create account</button>
+                New to ZoomOrder? <button type="button" onClick={() => { setModalType('signup'); resetUser(); }} className="text-red-400 hover:underline">Create account</button>
               </div>
             </form>
           ) : (
             <form className="space-y-4" onSubmit={handleSignup} noValidate>
               <input type="text" placeholder='Full Name' name='fullName' onChange={handleUser} value={user.fullName} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
-              <br />
               <input type='email' placeholder='Email' name='email' onChange={handleUser} value={user.email} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
-              <br />
               <div className='relative'>
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -141,29 +129,25 @@ function Header() {
                   {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </span>
               </div>
-              <br />
               {error && <p className="text-red-500">{error}</p>}
-              <br />
-              <input onChange={handleUser} name='TandC' value={user.TandC}
-                type="checkbox"
-                className="form-checkbox text-red-500 h-4 w-4 mr-2"
-              />
-              <span className="text-gray-700">
-                I agree to ZoomOrder's{' '}
-                <span className='text-red-400 hover:underline'>Terms of Service</span>,{' '}
-                <span className='text-red-400 hover:underline'>Privacy Policy</span>, and{' '}
-                <span className='text-red-400 hover:underline'>Content Policies</span>
-              </span>
+              <div>
+                <input onChange={handleUser} name='TandC' checked={user.TandC} type="checkbox" className="form-checkbox text-red-500 h-4 w-4 mr-2"/>
+                <span className="text-gray-700">
+                  I agree to ZoomOrder's{' '}
+                  <span className='text-red-400 hover:underline'>Terms of Service</span>,{' '}
+                  <span className='text-red-400 hover:underline'>Privacy Policy</span>, and{' '}
+                  <span className='text-red-400 hover:underline'>Content Policies</span>
+                </span>
+              </div>
               <button
                 type="submit"
                 disabled={!user.TandC}
-                className={`w-full text-white ${
-                  user.TandC ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-300 cursor-not-allowed'
-                } focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
-              >{loading ? 'Creating Account...' : 'Create Account'}
+                className={`w-full text-white ${user.TandC ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-300 cursor-not-allowed'} focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center`}
+              >
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
               <div className="text-sm font-medium text-gray-500">
-                Already have an account? <button onClick={(e)=>{setModalType("signin"); resetUser()}} className="text-red-400 hover:underline">Sign In</button>
+                Already have an account? <button type="button" onClick={() => { setModalType('signin'); resetUser(); }} className="text-red-400 hover:underline">Sign In</button>
               </div>
             </form>
           )}
@@ -173,4 +157,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Auth;
