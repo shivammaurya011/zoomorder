@@ -11,16 +11,16 @@ function HeroSection() {
         <div className='flex justify-center items-center font-semibold h-20 w-20 rounded-full bg-white'>
           <span className='text-red-500 text-5xl'>Z!</span>
         </div>
-        <p className=' text-4xl font-normal text-white'>Find the best restaurants, cafés and bars in India</p>
-        <div className='w-full h-10 flex flex-wrap font-medium items-center text-lg justify-between gap-4'>
-          <select className='w-[28%] p-2 rounded-md text-gray-400 outline-none' name="" id="">
+        <p className='text-2xl md:text-4xl font-normal text-white'>Find the best restaurants, cafés and bars in India</p>
+        <div className='w-full max-w-xl h-10 flex flex-wrap font-normal items-center text-lg justify-between gap-4'>
+          <select className='w-full md:w-[28%] p-2 rounded-md text-gray-400 outline-none' name="" id="">
             <option value="">Select Location</option>
             <option value="">Select Location</option>
             <option value="">Select Location</option>
             <option value="">Select Location</option>
             <option value="">Select Location</option>
           </select>
-          <div className='w-[68%] h-full flex justify-start items-center px-2 gap-2 rounded-md bg-white'>
+          <div className='w-full md:w-[68%] h-full flex justify-start items-center px-2 gap-2 rounded-md bg-white'>
             <FaSearch className='text-2xl font-thin text-gray-400'/>
             <input className='h-full outline-none w-[90%] text-gray-600 px-2' type="search" placeholder='Search for restaurants'/>
           </div>

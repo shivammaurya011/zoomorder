@@ -1,5 +1,6 @@
 export const restaurants = [
     {
+      "id":1,
       "name": "The Big Chill Cakery",
       "phone": "+91 3423423216",
       "locality": "XYZ Colony",
@@ -26,6 +27,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image1.jpg"
     },
     {
+      "id":2,
       "name": "Cafe Mocha",
       "phone": "+91 9876543210",
       "locality": "ABC Street",
@@ -52,6 +54,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image2.jpg"
     },
     {
+      "id":3,
       "name": "Spice Kitchen",
       "phone": "+91 1234567890",
       "locality": "LMN Lane",
@@ -78,6 +81,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image3.jpg"
     },
     {
+      "id":4,
       "name": "Burger Point",
       "phone": "+91 2233445566",
       "locality": "PQR Avenue",
@@ -104,6 +108,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image4.jpg"
     },
     {
+      "id":5,
       "name": "Tandoori Treat",
       "phone": "+91 3344556677",
       "locality": "STU Road",
@@ -130,6 +135,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image5.jpg"
     },
     {
+      "id":6,
       "name": "Sushi World",
       "phone": "+91 5566778899",
       "locality": "UVW Block",
@@ -156,6 +162,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image6.jpg"
     },
     {
+      "id":8,
       "name": "Pizza Paradise",
       "phone": "+91 6677889900",
       "locality": "XYZ Colony",
@@ -182,6 +189,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image7.jpg"
     },
     {
+      "id":9,
       "name": "Vegan Delight",
       "phone": "+91 7788990011",
       "locality": "OPQ Street",
@@ -208,6 +216,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image8.jpg"
     },
     {
+      "id":10,
       "name": "Thai Spice",
       "phone": "+91 8899001122",
       "locality": "RST Lane",
@@ -234,6 +243,7 @@ export const restaurants = [
       "imageUrl": "https://example.com/image9.jpg"
     },
     {
+      "id":11,
       "name": "French Bistro",
       "phone": "+91 9900112233",
       "locality": "GHI Plaza",

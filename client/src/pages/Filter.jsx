@@ -79,7 +79,7 @@ function Filter() {
 
   return (
     <Layout>
-      <div className='flex font-poppins gap-[2%] py-12 px-[4%]'>
+      <div className="flex flex-col md:flex-row font-poppins gap-4 md:gap-[2%] py-6 md:py-8 px-4 md:px-[4%]">
         <FilterSection filters={filters} onFilterChange={handleFilterChange} />
         <ResultSection
           restaurants={paginatedRestaurants}
