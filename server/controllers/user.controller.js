@@ -7,7 +7,7 @@ const secretKey = process.env.JWT_SECRATE_KEY;
 const userController = {
   register: async (req, res) => {
     try {
-      const { fullName, email, password } = req.body;
+      const { name, email, password } = req.body;
       const existingUser = await User.findOne({ email });
 
       if (existingUser) {
@@ -16,7 +16,7 @@ const userController = {
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({
-        fullName,
+        name,
         email,
         password: hashedPassword,
       });
@@ -79,7 +79,7 @@ const userController = {
       }
 
       const userProfile = {
-        fullName: user.fullName,
+        name: user.name,
         email: user.email,
         phoneNumber: user.phoneNumber,
         address: user.address,
@@ -107,7 +107,7 @@ const userController = {
         return res.status(404).json({ message: 'User not found.' });
       }
 
-      user.fullName = updatedProfileData.fullName || user.fullName;
+      user.name = updatedProfileData.name || user.name;
       user.phoneNumber = updatedProfileData.phoneNumber || user.phoneNumber;
       user.address = updatedProfileData.address || user.address;
       user.profilePicture = updatedProfileData.profilePicture || user.profilePicture;

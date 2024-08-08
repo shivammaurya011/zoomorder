@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    fullName: {
+    name: {
       type: String,
       required: true,
     },
@@ -18,7 +18,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    phoneNumber: String,
+    phone: {
+      type: String
+    },
     address: {
       street: String,
       city: String,
@@ -26,8 +28,12 @@ const userSchema = new Schema(
       zipCode: String,
       country: String,
     },
-    profilePicture: String,
-    dateOfBirth: Date,
+    picture: {
+      type: String
+    },
+    dob: {
+      type: Date
+    },
     gender: {
       type: String,
       enum: ['male', 'female', 'other'],
@@ -36,26 +42,11 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Order',
     }],
-    paymentMethods: [{
-      type: String,
-      details: {
-        lastFourDigits: String,
-        expirationDate: String,
-      },
-    }],
-    dietaryPreferences: [String],
-    favoriteCuisines: [String],
-    notificationPreferences: {
-      email: Boolean,
-      sms: Boolean,
-      push: Boolean,
-    },
     role: {
       type: String,
       enum: ['customer', 'admin', 'deliveryPerson', 'restaurant'],
       default: 'customer',
     },
-    authToken: String,
   },
   schemaOptions
 );

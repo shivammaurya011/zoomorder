@@ -2,12 +2,9 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import * as actionTypes from '../actionType/userActionType';
-// import dotenv from 'dotenv'
-// dotenv.config()
 
 const apiUrl = "http://localhost:3030/api";
 
-// Action Creators
 
 // Register Actions
 const registerRequest = () => ({ type: actionTypes.REGISTER_REQUEST });
@@ -28,10 +25,6 @@ const updateProfileFail = (error) => ({ type: actionTypes.UPDATE_PROFILE_FAIL, p
 const deleteProfileRequest = () => ({ type: actionTypes.DELETE_PROFILE_REQUEST });
 const deleteProfileSuccess = (data) => ({ type: actionTypes.DELETE_PROFILE_SUCCESS, payload: data });
 const deleteProfileFail = (error) => ({ type: actionTypes.DELETE_PROFILE_FAIL, payload: error });
-
-// Thunk Actions
-
-// Register User Thunk
 
 export const registerUser = (userData) => async (dispatch) => {
   try {

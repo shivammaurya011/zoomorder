@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  //console.log(action)
   switch (action.type) {
     case actionTypes.REGISTER_REQUEST:
     case actionTypes.LOGIN_REQUEST:

@@ -6,9 +6,11 @@ require("dotenv").config();
 const port = process.env.PORT || 8080;
 const userRoute = require("./routes/user.route")
 const restaurantRoute = require("./routes/restaurant.route")
+const locationRoute = require("./routes/location.router")
 const orderRoute = require("./routes/order.route")
 const menuRoute = require("./routes/menu.route");
 const cookieParser = require("cookie-parser");
+const { authenticateUser } = require("./middlewares/authenticate.middleware");
 
 const app = express();
 
@@ -17,6 +19,7 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/users", userRoute)
+app.use("/api/location", authenticateUser, locationRoute)
 app.use("/api/restaurant", restaurantRoute)
 app.use("/api/order", orderRoute)
 app.use("/api/menu", menuRoute)

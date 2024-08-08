@@ -13,7 +13,7 @@ function Auth() {
   const { loading, success, error } = userState;
 
   const [user, setUser] = useState({
-    fullName: '',
+    name: '',
     email: '',
     password: '',
     TandC: false,
@@ -34,7 +34,7 @@ function Auth() {
 
   const resetUser = () => {
     setUser({
-      fullName: '',
+      name: '',
       email: '',
       password: '',
       TandC: false,
@@ -69,7 +69,7 @@ function Auth() {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (user.TandC) {
-      await dispatch(registerUser({ fullName: user.fullName, email: user.email, password: user.password }));
+      await dispatch(registerUser({ name: user.name, email: user.email, password: user.password }));
     }
   };
 
@@ -111,7 +111,7 @@ function Auth() {
             </form>
           ) : (
             <form className="space-y-4" onSubmit={handleSignup} noValidate>
-              <input type="text" placeholder='Full Name' name='fullName' onChange={handleUser} value={user.fullName} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
+              <input type="text" placeholder='Full Name' name='name' onChange={handleUser} value={user.name} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
               <input type='email' placeholder='Email' name='email' onChange={handleUser} value={user.email} className='w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500'/>
               <div className='relative'>
                 <input

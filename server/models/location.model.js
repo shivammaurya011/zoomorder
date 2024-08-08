@@ -4,23 +4,16 @@ const Schema = mongoose.Schema;
 
 const locationSchema = new Schema(
   {
-    name: {
+    area: {
       type: String,
       required: true,
-    },
-    city_id: {
-      type: Number,
-      required: true,
-    },
-    location_id: {
-      type: Number,
-      required: true,
+      unique: true
     },
     city: {
       type: String,
       required: true,
     },
-    country_name: {
+    country: {
       type: String,
       required: true,
     },
