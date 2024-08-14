@@ -14,12 +14,12 @@ const { authenticateUser } = require("./middlewares/authenticate.middleware");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/users", userRoute)
-app.use("/api/location", authenticateUser, locationRoute)
+app.use("/api/location", locationRoute)
 app.use("/api/restaurant", restaurantRoute)
 app.use("/api/order", orderRoute)
 app.use("/api/menu", menuRoute)

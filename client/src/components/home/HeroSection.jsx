@@ -2,7 +2,7 @@ import React from 'react';
 import homeImg from '../../assets/home.png';
 import { FaSearch } from 'react-icons/fa';
 
-function HeroSection() {
+function HeroSection({locations}) {
   return (
     <div className='h-screen relative font-poppins'>
       <div className='absolute inset-0 -z-10 bg-cover' style={{ backgroundImage: `url(${homeImg})` }}></div>
@@ -14,11 +14,10 @@ function HeroSection() {
         <p className='text-2xl md:text-4xl font-normal text-white'>Find the best restaurants, cafés and bars in India</p>
         <div className='w-full max-w-xl h-10 flex flex-wrap font-normal items-center text-lg justify-between gap-4'>
           <select className='w-full md:w-[28%] p-2 rounded-md text-gray-400 outline-none' name="" id="">
-            <option value="">Select Location</option>
-            <option value="">Select Location</option>
-            <option value="">Select Location</option>
-            <option value="">Select Location</option>
-            <option value="">Select Location</option>
+            <option value={''}>Select Location</option>
+            {locations && locations.map((location, index)=>(
+              <option key={index} value={location.city}>{location.city}</option>
+            ))}
           </select>
           <div className='w-full md:w-[68%] h-full flex justify-start items-center px-2 gap-2 rounded-md bg-white'>
             <FaSearch className='text-2xl font-thin text-gray-400'/>
